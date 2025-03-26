@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "funder-site"
+dynamic = ["version"]
+description = 'Funder Documentation'
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Dávid Tóth", email = "tothda@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "Flask==3.1.0"
+]
+
+[project.urls]
+Documentation = "https://github.com/Dávid Tóth/funder-site#readme"
+Issues = "https://github.com/Dávid Tóth/funder-site/issues"
+Source = "https://github.com/Dávid Tóth/funder-site"
+
+[tool.hatch.version]
+path = "src/funder_site/__version__.py"
+
+[tool.hatch.envs.static]
+dependencies = [
+    "Frozen-Flask"
+]
+
+[tool.hatch.envs.static.scripts]
+build = "python freeze.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/funder_site tests}"
+
+[tool.coverage.run]
+source_pkgs = ["funder_site", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/funder_site/__version__.py",
+]
+
+[tool.coverage.paths]
+funder_site = ["src/funder_site", "*/funder-site/src/funder_site"]
+tests = ["tests", "*/funder-site/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
